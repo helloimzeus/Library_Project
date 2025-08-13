@@ -1,52 +1,46 @@
-from book import Book
 from library import Library
+
 def main():
     library = Library()
 
     while True:
-        print("\nKütüphane Yönetim Sistemi")
-        print("1. Kitap Ekle")
+        print("\n--- Kütüphane Menüsü ---")
+        print("1. Kitap Ekle (ISBN ile)")
         print("2. Kitap Sil")
         print("3. Kitapları Listele")
-        print("4. Kitap Bul")
+        print("4. Kitap Ara")
         print("5. Çıkış")
 
-        choice = input("Seçiminizi yapın: ")
+        choice = input("Seçiminiz: ").strip()
 
-        if choice == '1':
-            title = input("Kitap Başlığı: ")
-            author = input("Yazar: ")
-            isbn = input("ISBN: ")
-            book = Book(title, author, isbn)
-            library.add_book(book)
-            print(f"{title} kitabı eklendi.")
-        
-        elif choice == '2':
-            isbn = input("Silinecek kitabın ISBN'si: ")
-            library.remove_book(isbn)
-            print(f"{isbn} ISBN'li kitap silindi.")
-        
-        elif choice == '3':
+        if choice == "1":
+            isbn = input("ISBN: ").strip()
+            ok, msg = library.add_book_by_isbn(isbn)
+            print(msg)
+
+        elif choice == "2":
+            isbn = input("Silinecek kitabın ISBN'i: ").strip()
+            removed = library.remove_book(isbn)
+            print("Silindi." if removed else "Bulunamadı.")
+
+        elif choice == "3":
             books = library.list_books()
-            if books:
-                for book in books:
-                    print(f"{book.title} - {book.author} (ISBN: {book.isbn})")
+            if not books:
+                print("Kütüphane boş.")
             else:
-                print("Kütüphanede kitap bulunmamaktadır.")
-        
-        elif choice == '4':
-            isbn = input("Aranacak kitabın ISBN'si: ")
+                for b in books:
+                    print(b)
+
+        elif choice == "4":
+            isbn = input("Aranacak kitabın ISBN'i: ").strip()
             book = library.find_book(isbn)
-            if book:
-                print(f"{book.title} - {book.author} (ISBN: {book.isbn}) bulundu.")
-            else:
-                print(f"{isbn} ISBN'li kitap bulunamadı.")
-        
-        elif choice == '5':
+            print(book if book else "Kitap bulunamadı.")
+
+        elif choice == "5":
             print("Çıkılıyor...")
             break
-        
         else:
-            print("Geçersiz seçim, lütfen tekrar deneyin.")
+            print("Geçersiz seçim.")
+
 if __name__ == "__main__":
     main()
