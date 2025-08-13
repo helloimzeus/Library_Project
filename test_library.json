@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Kitap 1",
+        "author": "Yazar 1",
+        "isbn": "1111111111"
+    },
+    {
+        "title": "Kitap 2",
+        "author": "Yazar 2",
+        "isbn": "2222222222"
+    }
+]
