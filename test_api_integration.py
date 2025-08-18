@@ -57,14 +57,24 @@ def test_add_book_by_isbn_duplicate(monkeypatch, tmp_path):
     libfile = tmp_path / "lib.json"
     library = Library(filename=str(libfile))
 
-    # aynı başarılı cevap
-    isbn_json = {"title": "Test", "authors": []}
-    def fake_get(self, url):
-        return DummyResp(200, isbn_json)
-    monkeypatch.setattr("httpx.Client.get", fake_get)
+    # HTTP'ye hiç girmeden doğrudan data döndür:
+    monkeypatch.setattr(
+        "library.Library._fetch_isbn_json",
+        lambda self, isbn: {"title": "Test", "authors": []}
+    )
+    # Yazar adı çekmeye çalışırsa None dönsün (opsiyonel)
+    monkeypatch.setattr(
+        "library.Library._fetch_author_name",
+        lambda self, key: None
+    )
+    # Fallback'e düşerse yine basit, geçerli bir sonuç dön (opsiyonel güvenlik)
+    monkeypatch.setattr(
+        "library.Library._fetch_from_search_api",
+        lambda self, isbn: ("Test", "Bilinmiyor")
+    )
 
-    ok1, _ = library.add_book_by_isbn("111")
+    ok1, msg1 = library.add_book_by_isbn("111")
+    assert ok1, msg1                # İlk ekleme başarılı olmalı
+
     ok2, msg2 = library.add_book_by_isbn("111")
-    assert ok1 is True
-    assert ok2 is False
-    assert "zaten" in msg2.lower()
+    assert ok2 is False and "zaten" in msg2.lower()

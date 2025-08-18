@@ -3,5 +3,10 @@
         "title": "The C Programming Language",
         "author": "Brian W. Kernighan",
         "isbn": "9780131103627"
+    },
+    {
+        "title": "Clean Code",
+        "author": "Bilinmiyor",
+        "isbn": "9780132350884"
     }
 ]

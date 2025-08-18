@@ -1,0 +1,30 @@
+# Python derleme çıktıları
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Paketleme/dağıtım
+build/
+dist/
+*.egg-info/
+
+# Sanal ortam
+venv/
+
+# Test/coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# IDE/Editör
+.vscode/
+.idea/
+
+# İşletim sistemi
+.DS_Store
+Thumbs.db
+
+# Proje çalışma verisi
+library.json
