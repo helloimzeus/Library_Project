@@ -28,7 +28,7 @@ Library_Project/
 ├── library.py
 ├── main.py
 ├── api.py
-├── library.json        # (ilk başta boş: [])
+├── library.json
 ├── requirements.txt
 ├── test_library.py
 ├── test_api_integration.py
@@ -183,10 +183,3 @@ python -m pytest -q test_api_endpoints.py           # FastAPI endpoint testleri
 - `requirements.txt` mevcut  
 - Tüm Aşamalar için pytest testleri mevcut ve geçer durumda
 
----
-
-## 🪪 Lisans
-MIT (isteğe göre güncelleyebilirsiniz)
-
-## 🙌 Katkı
-PR’lar memnuniyetle karşılanır. Öneri ve sorunlar için issue açabilirsiniz.

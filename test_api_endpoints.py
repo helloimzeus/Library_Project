@@ -43,7 +43,6 @@ def test_create_and_list_book_success(client, monkeypatch):
                 return DummyResp(404, {})
         return FakeClient()
 
-    # <<< ÖNEMLİ: Sadece bizim Library'nin HTTP katmanını patch’le >>>
     monkeypatch.setattr("library.Library._http", fake_http)
 
     # POST /books
@@ -62,7 +61,6 @@ def test_create_and_list_book_success(client, monkeypatch):
 
 
 def test_create_book_not_found(client, monkeypatch):
-    # Bu testte httpx.Client.get'i patch’lemek yeterli (JSON header DummyResp’te var)
     monkeypatch.setattr("library.httpx.Client.get", lambda *a, **k: DummyResp(404, {}))
     r = client.post("/books", json={"isbn": "000000"})
     assert r.status_code == 404

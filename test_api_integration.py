@@ -25,7 +25,7 @@ class DummyResp:
         }
         author_json = {"name": "Robert C. Martin"}
 
-    # httpx.Client.get fonksiyonunu sahteleyelim
+    # httpx.Client.get fonksiyonunu sahtele
         def fake_get(self, url):
             if url.endswith(".json") and "/isbn/" in url:
                 return DummyResp(200, isbn_json)
@@ -62,19 +62,19 @@ def test_add_book_by_isbn_duplicate(monkeypatch, tmp_path):
         "library.Library._fetch_isbn_json",
         lambda self, isbn: {"title": "Test", "authors": []}
     )
-    # Yazar adı çekmeye çalışırsa None dönsün (opsiyonel)
+    # Yazar adı çekmeye çalışırsa None dönsün
     monkeypatch.setattr(
         "library.Library._fetch_author_name",
         lambda self, key: None
     )
-    # Fallback'e düşerse yine basit, geçerli bir sonuç dön (opsiyonel güvenlik)
+    # Fallback'e düşerse yine basit, geçerli bir sonuç dön
     monkeypatch.setattr(
         "library.Library._fetch_from_search_api",
         lambda self, isbn: ("Test", "Bilinmiyor")
     )
 
     ok1, msg1 = library.add_book_by_isbn("111")
-    assert ok1, msg1                # İlk ekleme başarılı olmalı
+    assert ok1, msg1              
 
     ok2, msg2 = library.add_book_by_isbn("111")
     assert ok2 is False and "zaten" in msg2.lower()

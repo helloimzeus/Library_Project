@@ -7,6 +7,6 @@ class Book:
     def __str__(self):
         return f"{self.title} by {self.author} (ISBN: {self.isbn})"
 
-    # çıktıların düzgün görünmesi için __repr__ metodu ekleniyor
+    # çıktıların düzgün görünmesi için
     def __repr__(self):
         return f"Book(title={self.title!r}, author={self.author!r}, isbn={self.isbn!r})"
